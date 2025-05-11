@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard</title>
+  <style>
+    body { font-family: sans-serif; padding: 1em; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border: 1px solid black; padding: 0.5em; }
+  </style>
+</head>
+<body>
+
+<h2>Order Dashboard</h2>
+<table>
+  <thead>
+    <tr><th>ID</th><th>Customer</th><th>Item</th><th>Quantity</th></tr>
+  </thead>
+  <tbody id="orderTable"></tbody>
+</table>
+
+<script>
+fetch('https://your-api.onrender.com/orders')
+  .then(res => res.json())
+  .then(data => {
+    const table = document.getElementById("orderTable");
+    data.forEach(order => {
+      table.innerHTML += `<tr><td>${order.id}</td><td>${order.customer}</td><td>${order.item}</td><td>${order.quantity}</td></tr>`;
+    });
+  });
+</script>
+
+</body>
+</html>
