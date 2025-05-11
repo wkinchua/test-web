@@ -1,6 +1,6 @@
 const express = require('express');
-const app = express();
 const cors = require('cors');
+const app = express();
 app.use(cors());
 
 const menu = [
@@ -14,7 +14,15 @@ const orders = [
   { id: 2, customer: "Bob", item: "Burger", quantity: 2 }
 ];
 
+// Root route
+app.get('/', (req, res) => {
+  res.send('Welcome to the Restaurant API!');
+});
+
 app.get('/menu', (req, res) => res.json(menu));
 app.get('/orders', (req, res) => res.json(orders));
 
-app.listen(3000, () => console.log('Restaurant API running on port 3000'));
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`API is running on port ${port}`);
+});
