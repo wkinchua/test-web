@@ -1,33 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
   <title>Admin Dashboard</title>
-  <style>
-    body { font-family: sans-serif; padding: 1em; }
-    table { width: 100%; border-collapse: collapse; }
-    th, td { border: 1px solid black; padding: 0.5em; }
-  </style>
 </head>
 <body>
+  <h1>All Orders</h1>
+  <div id="orders"></div>
 
-<h2>Order Dashboard</h2>
-<table>
-  <thead>
-    <tr><th>ID</th><th>Customer</th><th>Item</th><th>Quantity</th></tr>
-  </thead>
-  <tbody id="orderTable"></tbody>
-</table>
+  <script>
+    const apiUrl = "https://test-web-5e4u.onrender.com"; // change this
 
-<script>
-fetch('https://test-web-5e4u.onrender.com/orders')
-  .then(res => res.json())
-  .then(data => {
-    const table = document.getElementById("orderTable");
-    data.forEach(order => {
-      table.innerHTML += `<tr><td>${order.id}</td><td>${order.customer}</td><td>${order.item}</td><td>${order.quantity}</td></tr>`;
-    });
-  });
-</script>
-
+    fetch(`${apiUrl}/orders`)
+      .then(res => res.json())
+      .then(orders => {
+        const div = document.getElementById("orders");
+        orders.forEach(order => {
+          const el = document.createElement("div");
+          el.innerHTML = `
+            <h3>Order #${order.id} - ${order.customer}</h3>
+            <ul>
+              ${order.items.map(i => `<li>${i.name} - $${i.price}</li>`).join("")}
+            </ul>
+          `;
+          div.appendChild(el);
+        });
+      });
+  </script>
 </body>
 </html>
