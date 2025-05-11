@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Restaurant</title>
+  <style>
+    body { font-family: sans-serif; margin: 0; padding: 0; }
+    nav { background: #333; padding: 1em; }
+    nav a { color: white; margin: 0 1em; text-decoration: none; }
+    .menu-item { border-bottom: 1px solid #ccc; padding: 1em; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="dashboard.html">Admin</a>
+</nav>
+
+<h1>Welcome to My Restaurant</h1>
+<h2>Menu</h2>
+<div id="menuContainer"></div>
+
+<script>
+fetch('https://your-api.onrender.com/menu')
+  .then(res => res.json())
+  .then(data => {
+    const container = document.getElementById("menuContainer");
+    data.forEach(item => {
+      container.innerHTML += `<div class="menu-item"><strong>${item.name}</strong> - $${item.price}<br>${item.description}</div>`;
+    });
+  });
+</script>
+
+</body>
+</html>
